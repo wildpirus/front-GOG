@@ -101,28 +101,40 @@ export function Villians() {
         )
       ) : (
         <>
-            <h1 className="text-3xl">Villians</h1>
+            <h1 className="text-3xl">Villanos</h1>
             {villians.map((villian) => {
               return (
                 <Card key={cuid()}>
-                  <h1>Name: {villian.nombre}</h1>
-                  <p>Edad:{villian.edad}</p>
-                  <p>Origen: {villian.origen}</p>
-                  <p>Relaciones: {villian.relaciones}</p>
+                  <div class="flex flex-col">
+                    <div className="mb-3"> 
+                      <img src={villian.image_link} />
+                    </div>
+                    <div>
+                      <h1>Name: {villian.nombre}</h1>
+                      <p>Edad:{villian.edad}</p>
+                      <p>Origen: {villian.origen}</p>
+                      <p>Relaciones: {villian.relaciones}</p>
+                      <p>Habilidades: {villian.rasgosSuper.map(r => r.rasgo).filter(r => r.tipo_rasgo === "Habilidad").map(r => r.titulo).join(", ")}</p>
+                      <p>Debilidades: {villian.rasgosSuper.map(r => r.rasgo).filter(r => r.tipo_rasgo === "Debilidad").map(r => r.titulo).join(", ")}</p>
+                    </div>
+                  </div>
                 </Card>
               );
             })}
 
-          <h1 className="text-3xl mt-10">Worst Villain Against Teen</h1>
+          <h1 className="text-3xl mt-10">Villano que ha perdido mas contra un héroe adolescente</h1>
           {console.log([villianAgainstTeen])}
-          {[villianAgainstTeen].length > 0 ? (
+          {console.log(villianAgainstTeen instanceof Object)}
+          {villianAgainstTeen instanceof Object ? (
             [villianAgainstTeen].map((value) => {
               return (
                 <Card key={cuid()}>
-                  <h1 className="underline">Villian:</h1>
+                  <h1 className="underline">Villian</h1>
                   <h1>Name: {value.villano.nombre}</h1>
                   <h1 className="underline mt-2">Heroe:</h1>
                   <h1>Name: {value.heroe.nombre}</h1>
+                  <h1 className="underline mt-3">Peleas:</h1>
+                  <h1>Peleas perdidas por villano: {value.peleas}</h1>
                 </Card>
               );
             })

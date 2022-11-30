@@ -52,6 +52,9 @@ export const heroesSlice = createSlice({
     builder.addCase(createSponsorBySuper.fulfilled, (state, action) => {
         state.sponsor = action.payload
     })
+    builder.addCase(createEventBySuper.fulfilled, (state, action) => {
+        state.event = action.payload
+    })
     builder.addCase(GetheroeByHabilidades.fulfilled, (state, action) => {
         state.skills = action.payload
     })
@@ -117,7 +120,13 @@ export const fetchHeroeByName = createAsyncThunk('heroes/fetchHeroeByName', asyn
 })
 
 export const createSponsorBySuper = createAsyncThunk('heroes/createSponsorBySuper', async (data) => {
-    const res = await axios.get(`${import.meta.env.VITE_BASE_URL}createSponsorBySuper`, data);
+    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/patrocinadores`, data);
+    return res.data
+})
+
+export const createEventBySuper = createAsyncThunk('heroes/createEventBySuper', async (data) => {
+    console.log(data);
+    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/eventos`, data);
     return res.data
 })
 

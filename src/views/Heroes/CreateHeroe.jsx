@@ -13,6 +13,7 @@ export function CreateHeroe() {
   const dispatch = useDispatch();
   const created = useSelector(selectHeroeCreated);
   const onSubmit = async (data) => {
+    data.rol_super = "Heroe";
     await dispatch(createHeroe(data));
     console.log(created)
   }

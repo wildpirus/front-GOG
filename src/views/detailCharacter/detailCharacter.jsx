@@ -9,6 +9,8 @@ import {
   fetchAgenda,
   selectBestSponsor,
   getBestSponsor,
+  createSponsorBySuper,
+  createEventBySuper
 } from "../../store/features/heroesSlice";
 import { useParams } from "react-router-dom";
 import { Navbar } from "../../components/navbar/navbar";
@@ -24,6 +26,12 @@ export function DetailCharacter() {
   const [name, setName] = useState("");
   const [value, setValue] = useState("");
   const [origin, setOrigin] = useState("");
+
+  const [titulo, setTitulo] = useState("");
+  const [inicio, setInicio] = useState("");
+  const [fin, setFin] = useState("");
+  const [descripcion, setDesc] = useState("");
+  const [lugar, setLugar] = useState("");
   useEffect(() => {
     const getData = async () => {
       Promise.all[
@@ -164,21 +172,26 @@ export function DetailCharacter() {
               <div className="flex flex-col w-44">
                 <label>Name</label>
                 <input
-                  className="rounded-md"
+                  className="rounded-md text-black"
                   onChange={(e) => setName(e.target.value)}
                 />
                 <label>Value</label>
                 <input
-                  className="rounded-md"
+                  className="rounded-md text-black"
                   onChange={(e) => setValue(e.target.value)}
                 />
                 <label>Origin</label>
                 <input
-                  className="rounded-md"
+                  className="rounded-md text-black"
                   onChange={(e) => setOrigin(e.target.value)}
                 />
               </div>
-              <button className="rounded px-2 py-1 border-2 mt-2">Save</button>
+              <button className="rounded px-2 py-1 border-2 mt-2" onClick={dispatch(createSponsorBySuper({
+                super_id: details.super_id,
+                nombre: name,
+                monto: parseFloat(value),
+                origen_monto: origin
+              }))}>Save</button>
             </div>
 
             <div>
@@ -187,23 +200,42 @@ export function DetailCharacter() {
               </h1>
 
               <div className="flex flex-col w-44">
-                <label>Name</label>
+                <label>Titulo</label>
                 <input
-                  className="rounded-md"
-                  onChange={(e) => setName(e.target.value)}
+                  className="rounded-md text-black"
+                  onChange={(e) => setTitulo(e.target.value)}
                 />
-                <label>Value</label>
-                <input
-                  className="rounded-md"
-                  onChange={(e) => setValue(e.target.value)}
+                <label>Fecha Inicio</label>
+                <input 
+                  type="date" 
+                  className="rounded-md text-black"
+                  onChange={(e) => setInicio(e.target.value)}
                 />
-                <label>Origin</label>
+                <label>Fecha Fin</label>
+                <input 
+                  type="date" 
+                  className="rounded-md text-black"
+                  onChange={(e) => setFin(e.target.value)}
+                />
+                <label>descripcion</label>
                 <input
-                  className="rounded-md"
-                  onChange={(e) => setOrigin(e.target.value)}
+                  className="rounded-md text-black"
+                  onChange={(e) => setDesc(e.target.value)}
+                />
+                <label>lugar</label>
+                <input
+                  className="rounded-md text-black"
+                  onChange={(e) => setLugar(e.target.value)}
                 />
               </div>
-              <button className="rounded px-2 py-1 border-2 mt-2">Save</button>
+              <button className="rounded px-2 py-1 border-2 mt-2" onClick={dispatch(createEventBySuper({
+                super_id: details.super_id,
+                titulo: titulo,
+                inicio: new Date(inicio),
+                fin: new Date(fin),
+                descripcion: descripcion,
+                lugar: lugar
+              }))}>Save</button>
             </div>
           </div>
         </div>
